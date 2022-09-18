@@ -1,23 +1,39 @@
 <div class="content">
     <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-        <mat-card>
-            <mat-grid-list cols="3" rowHeight="50px">
-                <mat-grid-tile colspan=1 rowspan=1>
-                    <mat-form-field appearance="fill">
+        <mat-card style="margin-bottom: 3%;">
+            <mat-label></mat-label>
+            <mat-radio-group formControlName="flightOption">
+                <mat-radio-button value="0">Ida y vuelta</mat-radio-button>
+                <mat-radio-button value="1">Ida</mat-radio-button>
+            </mat-radio-group>
+        </mat-card>
+        <mat-card style="padding-top: 4%;">
+            <div class="row">
+                <div class="col-sm-12 col-md-3">
+                    <mat-form-field>
                         <mat-label>Origen</mat-label>
                         <input matInput formControlName="departure">
                     </mat-form-field>
-                </mat-grid-tile>    
-                <mat-grid-tile colspan=1 rowspan=1>
-                    <mat-form-field appearance="fill">
+                </div>
+                <div *ngIf="!sizeDevice" class="col-sm-12 col-md-1 content-center">
+                    <img width="45" height="45" alt="Logo" src="assets/img/change.png" />
+                </div>
+                <div class="col-sm-12 col-md-3">
+                    <mat-form-field>
                         <mat-label>Destino</mat-label>
                         <input matInput formControlName="arrival">
                     </mat-form-field>
-                </mat-grid-tile>                
-                <mat-grid-tile colspan=1 rowspan=1>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <mat-form-field>
+                        <mat-label>Escalas</mat-label>
+                        <input matInput type="number" formControlName="scale">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-12 col-md-3" style="padding-top: 10px;">
                     <button mat-raised-button color="primary" class="button" type="submit">Buscar vuelo</button>
-                </mat-grid-tile>
-            </mat-grid-list>
+                </div>
+            </div>
         </mat-card>
     </form>
 </div>
