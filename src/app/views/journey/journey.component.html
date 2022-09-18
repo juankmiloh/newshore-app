@@ -1,0 +1,23 @@
+<div class="content">
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <mat-grid-list cols="3" rowHeight="50px">
+                <mat-grid-tile colspan=1 rowspan=1>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Origen</mat-label>
+                        <input matInput formControlName="departure">
+                    </mat-form-field>
+                </mat-grid-tile>    
+                <mat-grid-tile colspan=1 rowspan=1>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Destino</mat-label>
+                        <input matInput formControlName="arrival">
+                    </mat-form-field>
+                </mat-grid-tile>                
+                <mat-grid-tile colspan=1 rowspan=1>
+                    <button mat-raised-button color="primary" class="button" type="submit">Buscar vuelo</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-card>
+    </form>
+</div>
