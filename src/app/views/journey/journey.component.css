@@ -12,7 +12,7 @@ mat-form-field {
 }
 
 button {
-    width: 100%;
+    width: 40%;
 }
 
 .content-center {
@@ -47,6 +47,11 @@ footer {
 .back-header-image {
     background-image: url("../../../assets/img/icono-vuelo-regreso.png");
     background-size: cover;
+}
+
+.btn-submit {
+    padding-top: 10px;
+    text-align: right;
 }
 
 /* Pantallas superiores a 800px (PC) */

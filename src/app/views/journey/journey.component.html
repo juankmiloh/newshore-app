@@ -46,7 +46,7 @@
             </mat-card>
             <mat-card style="padding-top: 4%;">
                 <div class="row">
-                    <div class="col-sm-12 col-md-2">
+                    <div class="col-sm-12 col-md-3">
                         <mat-form-field>
                             <mat-label>Origen</mat-label>
                             <input matInput #inputOrigin maxlength="3" oninput="this.value = this.value.toUpperCase()" formControlName="origin">
@@ -59,7 +59,7 @@
                     <div *ngIf="!sizeDevice" class="col-sm-12 col-md-1 content-center">
                         <img width="45" height="45" alt="Logo" src="assets/img/change.png" />
                     </div>
-                    <div class="col-sm-12 col-md-2">
+                    <div class="col-sm-12 col-md-3">
                         <mat-form-field>
                             <mat-label>Destino</mat-label>
                             <input matInput #inputDestination maxlength="3" oninput="this.value = this.value.toUpperCase()" formControlName="destination">
@@ -69,7 +69,7 @@
                                 * Obligatorio</mat-hint>
                         </mat-form-field>
                     </div>
-                    <div class="col-sm-12 col-md-4">
+                    <div class="col-sm-12 col-md-5">
                         <mat-form-field>
                             <mat-label>Moneda</mat-label>
                             <mat-select required formControlName="typeCurrency">
@@ -80,7 +80,7 @@
                             <mat-hint class="text-danger" *ngIf="(checkoutForm.get('typeCurrency').touched && checkoutForm.get('typeCurrency').hasError('required')) || (!checkoutForm.valid && checkoutForm.get('typeCurrency').hasError('required'))">* Obligatorio</mat-hint>
                         </mat-form-field>
                     </div>
-                    <div class="col-sm-12 col-md-3" style="padding-top: 10px;">
+                    <div class="col-sm-12 col-md-12 btn-submit">
                         <button mat-raised-button color="primary" class="button" type="submit">Buscar vuelo</button>
                     </div>
                 </div>
