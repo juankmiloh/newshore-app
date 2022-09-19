@@ -49,15 +49,15 @@ footer {
     background-size: cover;
 }
 
-.btn-submit {
-    padding-top: 10px;
-    text-align: right;
-}
-
 /* Pantallas superiores a 800px (PC) */
 @media screen and (min-width: 800px) {
     .sizeImg {
         height: 60vh;
+    }
+
+    .btn-submit {
+        padding-top: 10px;
+        text-align: right;
     }
 }
 
@@ -69,5 +69,13 @@ footer {
 
     .card-back {
         margin-top: 2%;
+    }
+
+    .btn-submit {
+        padding-top: 15px;
+    }
+
+    .btn-submit button {
+        width: 100%;
     }
 }
