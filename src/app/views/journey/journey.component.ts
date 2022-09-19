@@ -29,10 +29,14 @@ export class JourneyComponent implements OnInit {
     private flight: SearchFlightsService
   ) {
     this.checkoutForm = this.formBuilder.group({
-      flightOption: [null, Validators.required],
-      origin: [null, Validators.required],
-      destination: [null, Validators.required],
-      typeCurrency: [null, Validators.required]
+      flightOption: ['1'],
+      origin: ['AZL'],
+      destination: ['BOG'],
+      typeCurrency: ['COP']
+      // flightOption: [null, Validators.required],
+      // origin: [null, Validators.required],
+      // destination: [null, Validators.required],
+      // typeCurrency: [null, Validators.required]
     });
   }
 
@@ -61,6 +65,7 @@ export class JourneyComponent implements OnInit {
           this.goJourney = {}
           this.backJourney = null;
           this.goJourney = this.flight.findJourney(model.origin, model.destination, JSON.parse(localStorage.getItem('flights')));
+          console.log('JOURNEY :>> ', this.goJourney);
           this.total += this.goJourney['Journey']['Price'];
         }
       } else {

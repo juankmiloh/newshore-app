@@ -13,54 +13,42 @@ export class SearchFlightsService {
   constructor(private changeCurrency: ConvertCurrencyPipe) { }
 
   public findJourney(origin, destination, flights) {
-    const model = {origin, destination}
+    const model = { origin, destination }
     this.arrFlights = []
     const findOrigin = flights.find((flight) => flight.departureStation === model.origin); // Se verifica si existe el lugar de origen
     const findDestination = flights.find((destination) => destination.arrivalStation === model.destination); // Se verifica si existe el lugar destino
+    const journey = {"Journey": {"Price": this.changeCurrency.transform(0)}}; // Se crea el objeto vacio por defecto
     console.log(`ORIGEN INICIAL :>> ${origin} - DESTINO :>> ${destination}`);
-    // this.findSHortRoute(flights, model.origin, model.destination);
-    
+    console.log('findOrigin :>> ', findOrigin);
+
     if (findOrigin) { // Si existe origen
       if (findDestination) { // Si existe destino, se construye la ruta
         try {
           this.findFlights(flights, model.origin, model.destination);
-          const journey = this.buildRoute(model)
-          return journey;
+          return this.buildRoute(model); // Se devuelve el objeto con todos los valores de la ruta
         } catch (error) {
-          Swal.fire({
-            title: 'Info',
-            text: '!Vuelo no disponible!',
-            icon: 'info',
-            confirmButtonText: 'Ok'
-          });
+          Swal.fire({title: 'Info', text: '!Vuelo no disponible!', icon: 'info', confirmButtonText: 'Ok'});
         }
       } else {
-        Swal.fire({
-          title: 'Info',
-          text: '!Vuelo no disponible!',
-          icon: 'info',
-          confirmButtonText: 'Ok'
-        });
+        Swal.fire({title: 'Info', text: '!Destino no disponible!', icon: 'info', confirmButtonText: 'Ok'});
+        return journey;
       }
     } else {
-      Swal.fire({
-        title: 'Info',
-        text: '!Vuelo no disponible!',
-        icon: 'info',
-        confirmButtonText: 'Ok'
-      });
+      Swal.fire({title: 'Info', text: '!Origen no disponible!', icon: 'info', confirmButtonText: 'Ok'});
+      return journey;
     }
   }
 
   findFlights(flights, origin, destination) {
+    console.log('Entro a buscar vuelos!');
     const findOrigin = flights.find((flight) => flight.departureStation === origin);
     const findDestinationTemp = flights.find((flight) => flight.departureStation === origin).arrivalStation;
     console.log(`--- > NUEVO ORIGEN :>> ${findOrigin.departureStation} - NUEVO DESTINO :>> ${findDestinationTemp}`);
-    
+
     const posRoute = flights.indexOf(findOrigin); // Se obtiene la posicion del objeto en array de vuelos
     console.log(`POSICION DEL VUELO :>> ${posRoute}`);
     console.log(`VUELO :>> ${JSON.stringify(flights[posRoute])}`);
-    
+
     this.arrFlights.push(flights[posRoute]); // Se almacena la ruta
     console.log('COMPENDIO DE RUTAS USADAS :>> ', this.arrFlights);
     flights.splice(posRoute, 1); // Se elimina el vuelo
@@ -111,6 +99,7 @@ export class SearchFlightsService {
         "Flights": arrTemp
       }
     };
+    console.log('journey :>> ', journey);
     return journey;
   }
 }
