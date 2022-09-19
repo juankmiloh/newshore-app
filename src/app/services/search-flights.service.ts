@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConvertCurrencyPipe } from '../pipe/convert-currency.pipe';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Injectable({
   providedIn: 'root'
@@ -7,47 +8,55 @@ import { ConvertCurrencyPipe } from '../pipe/convert-currency.pipe';
 export class SearchFlightsService {
 
   arrFlights = []
+  Swal = require('sweetalert2');
 
   constructor(private changeCurrency: ConvertCurrencyPipe) { }
 
   public findJourney(origin, destination, flights) {
-    // console.log('flights :>> ', flights);
-    // console.log('model :>> ', model);
     const model = {origin, destination}
     this.arrFlights = []
     const findOrigin = flights.find((flight) => flight.departureStation === model.origin); // Se verifica si existe el lugar de origen
     const findDestination = flights.find((destination) => destination.arrivalStation === model.destination); // Se verifica si existe el lugar destino
     if (findOrigin) { // Si existe origen
       if (findDestination) { // Si existe destino, se construye la ruta
-        // console.log('Destino :>> ', model.destination);
         try {
           this.findFlights(flights, model.origin, model.destination);
           const journey = this.buildRoute(model)
-          // console.log('route :>> ', journey);
           return journey;
         } catch (error) {
-          console.log('No se encontro un vuelo disponible');
+          Swal.fire({
+            title: 'Info',
+            text: '!Vuelo no disponible!',
+            icon: 'info',
+            confirmButtonText: 'Ok'
+          });
         }
       } else {
-        console.log('Destino no disponible');
+        Swal.fire({
+          title: 'Info',
+          text: '!Vuelo no disponible!',
+          icon: 'info',
+          confirmButtonText: 'Ok'
+        });
       }
     } else {
-      console.log('Origen no disponible');
+      Swal.fire({
+        title: 'Info',
+        text: '!Vuelo no disponible!',
+        icon: 'info',
+        confirmButtonText: 'Ok'
+      });
     }
   }
 
   findFlights(flights, origin, destination) {
     const findOrigin = flights.find((flight) => flight.departureStation === origin);
     const findDestinationTemp = flights.find((flight) => flight.departureStation === origin).arrivalStation;
-    // console.log('--> vuelo origen ::>> ', findOrigin.departureStation);
-    // console.log('Llegada del vuelo a :>> ', findDestinationTemp);
     const posRoute = flights.indexOf(findOrigin); // Se obtiene la posicion del objeto en array de vuelos
     this.arrFlights.push(flights[posRoute]); // Se almacena la ruta
     if (destination !== findDestinationTemp) {
       flights.splice(posRoute, 1); // Se elimina el vuelo
       this.findFlights(flights, findDestinationTemp, destination);
-    } else {
-      // console.log('Se llego al destino :>> ', findDestinationTemp);
     }
   }
 

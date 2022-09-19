@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FlightsService } from 'src/app/api/flights.service';
 import { LIST_CURRENCY } from 'src/app/constants/constants';
-import { ConvertCurrencyPipe } from 'src/app/pipe/convert-currency.pipe';
 import { SearchFlightsService } from 'src/app/services/search-flights.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
@@ -27,18 +26,13 @@ export class JourneyComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private flightService: FlightsService,
-    private flight: SearchFlightsService,
-    private changeCurrency: ConvertCurrencyPipe
+    private flight: SearchFlightsService
   ) {
     this.checkoutForm = this.formBuilder.group({
-      flightOption: ['0'],
-      origin: ['MZL'],
-      destination: ['BOG'],
-      typeCurrency: ['COP']
-      // flightOption: [null, Validators.required],
-      // origin: [null, Validators.required],
-      // destination: [null, Validators.required],
-      // typeCurrency: [null, Validators.required]
+      flightOption: [null, Validators.required],
+      origin: [null, Validators.required],
+      destination: [null, Validators.required],
+      typeCurrency: [null, Validators.required]
     });
   }
 
@@ -55,7 +49,6 @@ export class JourneyComponent implements OnInit {
         const backFlights = JSON.parse(localStorage.getItem('flights'));
         this.currency = model.typeCurrency;
         localStorage.setItem('valCurrency', model.typeCurrency);
-        // console.log('model :>> ', model);
         if (model.flightOption === '0') {
           this.goJourney = {};
           this.backJourney = {};
@@ -67,11 +60,9 @@ export class JourneyComponent implements OnInit {
         if (model.flightOption === '1') {
           this.goJourney = {}
           this.backJourney = null;
-          this.goJourney = this.flight.findJourney(model.origin, model.destination, goFlights);
+          this.goJourney = this.flight.findJourney(model.origin, model.destination, JSON.parse(localStorage.getItem('flights')));
           this.total += this.goJourney['Journey']['Price'];
         }
-        console.log('GO :>> ', this.goJourney);
-        console.log('Back :>> ', this.backJourney);
       } else {
         Swal.fire({
           title: 'Info',
