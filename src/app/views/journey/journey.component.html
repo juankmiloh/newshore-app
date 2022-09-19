@@ -1,39 +1,146 @@
-<div class="content">
-    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-        <mat-card style="margin-bottom: 3%;">
-            <mat-label></mat-label>
-            <mat-radio-group formControlName="flightOption">
-                <mat-radio-button value="0">Ida y vuelta</mat-radio-button>
-                <mat-radio-button value="1">Ida</mat-radio-button>
-            </mat-radio-group>
-        </mat-card>
-        <mat-card style="padding-top: 4%;">
-            <div class="row">
-                <div class="col-sm-12 col-md-3">
-                    <mat-form-field>
-                        <mat-label>Origen</mat-label>
-                        <input matInput formControlName="departure">
-                    </mat-form-field>
-                </div>
-                <div *ngIf="!sizeDevice" class="col-sm-12 col-md-1 content-center">
-                    <img width="45" height="45" alt="Logo" src="assets/img/change.png" />
-                </div>
-                <div class="col-sm-12 col-md-3">
-                    <mat-form-field>
-                        <mat-label>Destino</mat-label>
-                        <input matInput formControlName="arrival">
-                    </mat-form-field>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                    <mat-form-field>
-                        <mat-label>Escalas</mat-label>
-                        <input matInput type="number" formControlName="scale">
-                    </mat-form-field>
-                </div>
-                <div class="col-sm-12 col-md-3" style="padding-top: 10px;">
-                    <button mat-raised-button color="primary" class="button" type="submit">Buscar vuelo</button>
-                </div>
-            </div>
-        </mat-card>
-    </form>
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+            aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active sizeImg">
+            <img src="assets/img/carousel.jpg" class="responsive" alt="carousel">
+        </div>
+        <div class="carousel-item sizeImg">
+            <img src="assets/img/carousel1.jpg" class="responsive" alt="carousel">
+        </div>
+        <div class="carousel-item sizeImg">
+            <img src="assets/img/carousel2.jpg" class="responsive" alt="carousel">
+        </div>
+        <div class="carousel-item sizeImg">
+            <img src="assets/img/carousel4.jpg" class="responsive" alt="carousel">
+        </div>
+    </div>
+    <a class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
 </div>
+
+<div class="content">
+    <mat-card style="margin-top: -60px;">
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+            <mat-card style="margin-bottom: 3%;">
+                <mat-radio-group formControlName="flightOption">
+                    <mat-radio-button value=0>Ida y vuelta</mat-radio-button>
+                    <mat-radio-button value=1>Ida</mat-radio-button>
+                </mat-radio-group>
+                <mat-hint class="text-danger text-radio" *ngIf="checkoutForm.get('flightOption').hasError('required')">*
+                    Obligatorio</mat-hint>
+            </mat-card>
+            <mat-card style="padding-top: 4%;">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3">
+                        <mat-form-field>
+                            <mat-label>Origen</mat-label>
+                            <input matInput #inputOrigin maxlength="3" oninput="this.value = this.value.toUpperCase()" formControlName="origin">
+                            <mat-hint align="end">{{inputOrigin.value.length}} / 3</mat-hint>
+                            <mat-hint class="text-danger"
+                                *ngIf="(checkoutForm.get('origin').touched && checkoutForm.get('origin').hasError('required')) || (!checkoutForm.valid && checkoutForm.get('origin').hasError('required'))">
+                                * Obligatorio</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="!sizeDevice" class="col-sm-12 col-md-1 content-center">
+                        <img width="45" height="45" alt="Logo" src="assets/img/change.png" />
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <mat-form-field>
+                            <mat-label>Destino</mat-label>
+                            <input matInput #inputDestination maxlength="3" oninput="this.value = this.value.toUpperCase()" formControlName="destination">
+                            <mat-hint align="end">{{inputDestination.value.length}} / 3</mat-hint>
+                            <mat-hint class="text-danger"
+                                *ngIf="(checkoutForm.get('destination').touched && checkoutForm.get('destination').hasError('required')) || (!checkoutForm.valid && checkoutForm.get('destination').hasError('required'))">
+                                * Obligatorio</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-2">
+                        <mat-form-field>
+                            <mat-label>Moneda</mat-label>
+                            <mat-select required formControlName="typeCurrency">
+                                <mat-option *ngFor="let currency of currencies" [value]="currency.id">
+                                    {{currency.value}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-hint class="text-danger" *ngIf="(checkoutForm.get('typeCurrency').touched && checkoutForm.get('typeCurrency').hasError('required')) || (!checkoutForm.valid && checkoutForm.get('typeCurrency').hasError('required'))">* Obligatorio</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-3" style="padding-top: 10px;">
+                        <button mat-raised-button color="primary" class="button" type="submit">Buscar vuelo</button>
+                    </div>
+                </div>
+            </mat-card>
+        </form>
+    </mat-card>
+
+    <div class="row" style="margin-top: 2%;">
+        <div *ngIf="goJourney && backJourney" class="col-sm-12 col-md-12" style="padding-bottom: 2%;">
+            <mat-card>
+                <b>TOTAL: </b> <u>(Ida)</u> {{ goJourney['Journey']['Price'] | number }} {{ currency }} <b>+ </b> <u>(Regreso)</u> {{ backJourney["Journey"]["Price"] | number }} {{ currency }} <b>=</b> {{ total | number }} {{ currency }}
+            </mat-card>
+        </div>
+        <div *ngIf="goJourney && !backJourney" class="col-sm-12 col-md-12" style="padding-bottom: 2%;">
+            <mat-card>
+                <b>TOTAL: </b> <u>(Ida)</u> {{ goJourney['Journey']['Price'] | number }} {{ currency }}
+            </mat-card>
+        </div>
+        <div *ngIf="goJourney" [class]="backJourney ? 'col-sm-12 col-md-6' : 'col-sm-12 col-md-12'">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar class="go-header-image"></div>
+                    <mat-card-title>Vuelo de ida</mat-card-title>
+                    <mat-card-subtitle>{{ goJourney['Journey']['Origin'] }} - {{ goJourney['Journey']['Destination'] }}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-card *ngFor="let flight of goJourney['Journey']['Flights']" style="margin-top: 2%;">
+                        <div>
+                            <b>{{ flight['Origin'] }} -  {{ flight['Destination'] }}</b>
+                        </div>
+                        <div>
+                            <span style="font-size: small;">No. Vuelo: {{ flight['Transport']['FlightNumber'] }} |  Precio: {{ flight['Price'] | number }} {{ currency }}</span>
+                        </div>
+                    </mat-card>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div *ngIf="backJourney" [class]="goJourney ? 'col-sm-12 col-md-6' : ''" class="card-back">
+            <mat-card>
+                <mat-card-header>
+                    <div mat-card-avatar class="back-header-image"></div>
+                    <mat-card-title>Vuelo de regreso</mat-card-title>
+                    <mat-card-subtitle>{{ backJourney["Journey"]["Origin"] }} - {{ backJourney["Journey"]["Destination"] }}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-card *ngFor="let flight of backJourney['Journey']['Flights']" style="margin-top: 2%;">
+                        <div>
+                            <b>{{ flight['Origin'] }} -  {{ flight['Destination'] }}</b>
+                        </div>
+                        <div>
+                            <span style="font-size: small;">No. Vuelo: {{ flight['Transport']['FlightNumber'] }} |  Precio: {{ flight['Price'] | number }} {{ currency }}</span>
+                        </div>
+                    </mat-card>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    Desarrollado por &nbsp;<b>Juan Camilo Herrera Ardila</b>
+</footer>

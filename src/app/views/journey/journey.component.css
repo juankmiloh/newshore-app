@@ -1,6 +1,6 @@
 .content {
     /* display: flex; */
-    margin: 100px auto 32px;
+    margin: 20px auto 32px;
     padding: 0 16px;
     max-width: 860px;
     flex-direction: column;
@@ -21,4 +21,48 @@ button {
 
 .mat-radio-button ~ .mat-radio-button {
     margin-left: 16px;
+}
+
+.responsive {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+footer {
+    /* margin-top: 180px; */
+    text-align: center;
+}
+
+.text-radio {
+    font-size: x-small;
+    margin-left: 10px;
+}
+
+.go-header-image {
+    background-image: url("../../../assets/img/icono-vuelo-ida.png");
+    background-size: cover;
+}
+
+.back-header-image {
+    background-image: url("../../../assets/img/icono-vuelo-regreso.png");
+    background-size: cover;
+}
+
+/* Pantallas superiores a 800px (PC) */
+@media screen and (min-width: 800px) {
+    .sizeImg {
+        height: 60vh;
+    }
+}
+
+/* Pantallas inferiores a 800px (mobile) */
+@media screen and (max-width: 800px) {
+    .sizeImg {
+        height: 40vh;
+    }
+
+    .card-back {
+        margin-top: 2%;
+    }
 }

@@ -1,6 +1,5 @@
 .content {
     display: flex;
-    margin: 250px auto 32px;
     padding: 0 16px;
     max-width: 960px;
     flex-direction: column;
@@ -58,15 +57,10 @@ svg#rocket-smoke {
 }
 
 footer {
-    margin-top: 8px;
+    margin-top: 18px;
     display: flex;
     align-items: center;
     line-height: 20px;
-}
-
-footer a {
-    display: flex;
-    align-items: center;
 }
 
 svg#clouds {
@@ -79,6 +73,10 @@ svg#clouds {
 
 /* Pantallas superiores a 800px (PC) */
 @media screen and (min-width: 800px) {
+    .content {
+        margin: 250px auto 32px;
+    }
+
     .card:not(.highlight-card) {
         height: 16px;
         margin: 8px 0;
@@ -96,6 +94,10 @@ svg#clouds {
 
 /* Pantallas inferiores a 800px (mobile) */
 @media screen and (max-width: 800px) {
+    .content {
+        padding-top: 250px;
+    }
+
     svg#rocket-smoke {
         display: none;
         visibility: hidden;
