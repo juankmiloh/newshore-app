@@ -88,7 +88,7 @@
         </form>
     </mat-card>
 
-    <div class="row" style="margin-top: 2%;">
+    <div *ngIf="total != 0" class="row" style="margin-top: 2%;">
         <div *ngIf="goJourney && backJourney" class="col-sm-12 col-md-12" style="padding-bottom: 2%;">
             <mat-card>
                 <b>TOTAL: </b> <u>(Ida)</u> {{ goJourney['Journey']['Price'] | number }} {{ currency }} <b>+ </b> <u>(Regreso)</u> {{ backJourney["Journey"]["Price"] | number }} {{ currency }} <b>=</b> {{ total | number }} {{ currency }}
